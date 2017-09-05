@@ -7,12 +7,19 @@ namespace RandomState\Tests\LaravelApi\Feature\Versioning;
 use RandomState\Api\Api;
 use RandomState\Api\Versioning\Manager;
 use RandomState\Api\Versioning\Version;
+use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\Model\CurrentUserTransformer;
 use RandomState\Tests\LaravelApi\Model\OldUserTransformer;
 use RandomState\Tests\LaravelApi\Model\User;
 use RandomState\Tests\LaravelApi\TestCase;
 
 class CanVersionTest extends TestCase {
+
+	protected function setUp()
+	{
+		parent::setUp();
+		$this->app->register(LaravelApiServiceProvider::class);
+	}
 
 	/**
 	 * @test

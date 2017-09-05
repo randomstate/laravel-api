@@ -1,7 +1,7 @@
 <?php
 
 
-namespace RandomState\LaravelApi\Middleware;
+namespace RandomState\LaravelApi\Http\Middleware;
 
 
 use Closure;

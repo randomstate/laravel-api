@@ -4,6 +4,7 @@
 namespace RandomState\LaravelApi;
 
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\ServiceProvider;
 use RandomState\Api\Api;
 use RandomState\Api\Namespaces\CustomNamespace;
@@ -11,6 +12,7 @@ use RandomState\Api\Namespaces\Manager;
 use RandomState\Api\Transformation\Manager as TransformManager;
 use RandomState\Api\Versioning\Manager as VersionManager;
 use RandomState\LaravelApi\Adapters\Driver;
+use RandomState\LaravelApi\Exceptions\Handler;
 use RandomState\LaravelApi\Exceptions\UndeclaredVersionException;
 use RandomState\LaravelApi\Http\Response\ResponseFactory;
 use RandomState\LaravelApi\Http\Routing\Router;
@@ -39,6 +41,8 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$this->bindNamespaces();
 		$this->resolveLatestVersionAsDefaultForAnyNamespace();
 		$this->bindResponseFactory();
+
+		$this->app->bind(ExceptionHandler::class, Handler::class);
 	}
 
 	protected function bindNamespaceManager()
