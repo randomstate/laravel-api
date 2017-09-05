@@ -36,7 +36,7 @@ class CanVersionTest extends TestCase {
 		]);
 
 		/** @var Manager $versionManager */
-		$versionManager = $this->app->make(Api::class)->versions();
+		$versionManager = $this->app->make(\RandomState\Api\Namespaces\Manager::class)->getNamespace()->versions();
 
 		$this->assertInstanceOf(Version::class, $versionManager->get('1.0'));
 		$this->assertInstanceOf(Version::class, $versionManager->get('2.0'));
@@ -63,7 +63,7 @@ class CanVersionTest extends TestCase {
 		]);
 
 		/** @var Manager $versionManager */
-		$versionManager = $this->app->make(Api::class)->versions();
+		$versionManager = $this->app->make(\RandomState\Api\Namespaces\Manager::class)->getNamespace()->versions();
 
 		$v1 = $versionManager->get('1');
 		$v2 = $versionManager->get('2');
@@ -89,7 +89,7 @@ class CanVersionTest extends TestCase {
 		]);
 
 		/** @var Manager $versionManager */
-		$versionManager = $this->app->make(Api::class)->versions();
+		$versionManager = $this->app->make(\RandomState\Api\Namespaces\Manager::class)->getNamespace()->versions();
 
 		$v1 = $versionManager->get('1.0.0');
 		$this->assertNotNull($v1);
