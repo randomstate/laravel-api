@@ -105,7 +105,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$driver = $this->app->make($driver);
 		$versionConfig = $this->getConfig($key = "namespaces.{$namespace}.versions.{$version}");
 
-		if(!$versionConfig) {
+		if(is_null($versionConfig)) {
 			throw new UndeclaredVersionException("The version {$version} does not have any configuration or transformers configured.");
 		}
 

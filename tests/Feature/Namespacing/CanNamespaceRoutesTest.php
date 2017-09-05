@@ -11,6 +11,7 @@ use League\Fractal\TransformerAbstract;
 use RandomState\Api\Api;
 use RandomState\Api\Namespaces\CustomNamespace;
 use RandomState\Api\Namespaces\Manager;
+use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\TestCase;
 
 class CanNamespaceRoutesTest extends TestCase {
@@ -20,7 +21,9 @@ class CanNamespaceRoutesTest extends TestCase {
 	 */
 	public function namespace_interface_defaults_to_default_namespace()
 	{
-	    $this->assertInstanceOf(CustomNamespace::class, $this->app->make(Api::class));
+		$this->app->register(LaravelApiServiceProvider::class);
+
+		$this->assertInstanceOf(CustomNamespace::class, $this->app->make(Api::class));
 	    $this->assertEquals($this->app->make(Manager::class)->getNamespace('default'), $this->app->make(Api::class));
 	}
 
@@ -31,29 +34,35 @@ class CanNamespaceRoutesTest extends TestCase {
 	{
 		$this->withoutExceptionHandling();
 
-//		$this->app->make('config')->set('api.namespaces.web', [
-//			'adapters' => 'fractal',
-//			'versions' => [
-//				'latest' => [
-//					WebEntityTransformer::class,
-//				]
-//			]
-//		]);
-
-		$this->app->make('config')->set('api.namespaces.api', [
-			'adapters' => 'fractal',
-			'versions' => [
-				'latest' => [
-					ApiEntityTransformer::class
-				],
+		$this->app->make('config')->set('api.namespaces', [
+			'web' => [
+				'adapters' => 'fractal',
+				'versions' => [
+					'latest' => [
+						WebEntityTransformer::class,
+					]
+				]
+			],
+			'api' => [
+				'adapters' => 'fractal',
+				'versions' => [
+					'latest' => [
+						ApiEntityTransformer::class
+					],
+				]
 			]
 		]);
 
-		Route::get('/v1', NamespaceController::class . '@test')->middleware('namespace:default');
+		$this->app->register(LaravelApiServiceProvider::class);
+
+		Route::get('/v1', NamespaceController::class . '@test')->middleware('namespace:web');
 		Route::get('/v2', NamespaceController::class . '@test')->middleware('namespace:api');
 
 		$web = $this->get('/v1');
 		$api = $this->get('/v2');
+
+		$web->assertJsonStructure(['data' => ['name']]);
+		$api->assertJsonStructure(['data' => ['name', 'apiToken']]);
 	}
 }
 

@@ -21,6 +21,6 @@ class LatestVersion implements VersionSwitch {
 
 	public function getVersionIdentifier()
 	{
-		return $this->api->versions()->current()->identifier();
+		return $this->api->versions()->identify($this->api->versions()->current());
 	}
 }

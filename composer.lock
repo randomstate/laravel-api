@@ -1373,16 +1373,16 @@
         },
         {
             "name": "randomstate/api",
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/randomstate/api.git",
-                "reference": "1782dbacaa6f49931376ed65e30c5b82ff7e9ae0"
+                "reference": "e2afa83d746c1ace7a96df2eb6db209fa68ecb73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/randomstate/api/zipball/1782dbacaa6f49931376ed65e30c5b82ff7e9ae0",
-                "reference": "1782dbacaa6f49931376ed65e30c5b82ff7e9ae0",
+                "url": "https://api.github.com/repos/randomstate/api/zipball/e2afa83d746c1ace7a96df2eb6db209fa68ecb73",
+                "reference": "e2afa83d746c1ace7a96df2eb6db209fa68ecb73",
                 "shasum": ""
             },
             "require": {
@@ -1409,7 +1409,7 @@
                 }
             ],
             "description": "A flexible API package for PHP.",
-            "time": "2017-09-05 08:56:16"
+            "time": "2017-09-05 14:23:07"
         },
         {
             "name": "swiftmailer/swiftmailer",
