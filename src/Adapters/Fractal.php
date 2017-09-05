@@ -9,9 +9,9 @@ use League\Fractal\Manager;
 use League\Fractal\Serializer\SerializerAbstract;
 use RandomState\Api\Transformation\Fractal\Resolver;
 use RandomState\Api\Transformation\Fractal\Switchboard;
-use RandomState\LaravelApi\AdapterDriver;
+use RandomState\LaravelApi\Adapters\Driver;
 
-class Fractal implements AdapterDriver {
+class Fractal implements Driver {
 
 	/**
 	 * @var Container

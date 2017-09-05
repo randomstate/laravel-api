@@ -1,13 +1,15 @@
 <?php
 
 
-namespace RandomState\LaravelApi;
+namespace RandomState\LaravelApi\Adapters;
 
 
-class AdapterManager {
+use RandomState\LaravelApi\Adapters\Driver;
+
+class Manager {
 
 	/**
-	 * @var array | AdapterDriver[]
+	 * @var array | Driver[]
 	 */
 	protected $drivers = [];
 
@@ -15,7 +17,7 @@ class AdapterManager {
 	{
 	}
 
-	public function bind($name, AdapterDriver $driver, array $config)
+	public function bind($name, Driver $driver, array $config)
 	{
 		$this->drivers[$name] = $driver->resolveFromConfig($config);
 
@@ -25,7 +27,7 @@ class AdapterManager {
 	/**
 	 * @param $driver
 	 *
-	 * @return mixed|null|AdapterDriver
+	 * @return mixed|null|Driver
 	 */
 	public function get($driver)
 	{

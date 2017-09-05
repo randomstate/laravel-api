@@ -1,12 +1,12 @@
 <?php
 
 
-namespace RandomState\LaravelApi;
+namespace RandomState\LaravelApi\Adapters;
 
 
 use RandomState\Api\Transformation\Adapters\Adapter;
 
-interface AdapterDriver {
+interface Driver {
 
 	/**
 	 * @param array $driverConfig

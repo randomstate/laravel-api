@@ -5,7 +5,6 @@ namespace RandomState\Tests\LaravelApi\Feature\Namespacing;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Kernel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use League\Fractal\TransformerAbstract;
@@ -24,20 +23,38 @@ class CanNamespaceRoutesTest extends TestCase {
 	    $this->assertInstanceOf(CustomNamespace::class, $this->app->make(Api::class));
 	    $this->assertEquals($this->app->make(Manager::class)->getNamespace('default'), $this->app->make(Api::class));
 	}
-//
-//	/**
-//	 * @test
-//	 */
-//	public function can_allocate_a_route_to_a_namespace()
-//	{
-//		$this->withoutExceptionHandling();
-//
-//		Route::get('/v1', NamespaceController::class . '@test')->middleware('namespace:web');
-//		Route::get('/v2', NamespaceController::class . '@test')->middleware('namespace:api');
-//
-//		$web = $this->get('/v1');
-//		$api = $this->get('/v2');
-//	}
+
+	/**
+	 * @test
+	 */
+	public function can_allocate_a_route_to_a_namespace()
+	{
+		$this->withoutExceptionHandling();
+
+//		$this->app->make('config')->set('api.namespaces.web', [
+//			'adapters' => 'fractal',
+//			'versions' => [
+//				'latest' => [
+//					WebEntityTransformer::class,
+//				]
+//			]
+//		]);
+
+		$this->app->make('config')->set('api.namespaces.api', [
+			'adapters' => 'fractal',
+			'versions' => [
+				'latest' => [
+					ApiEntityTransformer::class
+				],
+			]
+		]);
+
+		Route::get('/v1', NamespaceController::class . '@test')->middleware('namespace:default');
+		Route::get('/v2', NamespaceController::class . '@test')->middleware('namespace:api');
+
+		$web = $this->get('/v1');
+		$api = $this->get('/v2');
+	}
 }
 
 class Entity {

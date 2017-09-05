@@ -4,7 +4,6 @@
 namespace RandomState\Tests\LaravelApi\Feature\Versioning;
 
 
-use League\Fractal\TransformerAbstract;
 use RandomState\Api\Api;
 use RandomState\Api\Versioning\Manager;
 use RandomState\Api\Versioning\Version;
@@ -69,5 +68,23 @@ class CanVersionTest extends TestCase {
 		$user = new User();
 
 		$this->assertNotEquals($output1 = $v1->transform($user), $output2 =$v2->transform($user));
+	}
+
+	/**
+	 * @test
+	 */
+	public function can_configure_version_with_dot_notation()
+	{
+		$this->app->make('config')->set('api.namespaces.default.versions', [
+			'1.0.0' => [
+				OldUserTransformer::class,
+			]
+		]);
+
+		/** @var Manager $versionManager */
+		$versionManager = $this->app->make(Api::class)->versions();
+
+		$v1 = $versionManager->get('1.0.0');
+		$this->assertNotNull($v1);
 	}
 }

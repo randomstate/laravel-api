@@ -10,9 +10,13 @@ use RandomState\Api\Namespaces\CustomNamespace;
 use RandomState\Api\Namespaces\Manager;
 use RandomState\Api\Transformation\Manager as TransformManager;
 use RandomState\Api\Versioning\Manager as VersionManager;
+use RandomState\LaravelApi\Adapters\Driver;
 use RandomState\LaravelApi\Exceptions\UndeclaredVersionException;
+use RandomState\LaravelApi\Http\Response\ResponseFactory;
 use RandomState\LaravelApi\Http\Routing\Router;
 use RandomState\LaravelApi\Traits\ApiConfig;
+use RandomState\LaravelApi\Versioning\ErrorSwitch;
+use RandomState\LaravelApi\Versioning\LatestVersion;
 
 class LaravelApiServiceProvider extends ServiceProvider {
 
@@ -33,6 +37,8 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$this->bindNamespaceManager();
 		$this->bindDefaultNamespace();
 		$this->bindNamespaces();
+		$this->resolveLatestVersionAsDefaultForAnyNamespace();
+		$this->bindResponseFactory();
 	}
 
 	protected function bindNamespaceManager()
@@ -95,7 +101,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$driverConfig = $this->getConfig("adapters.{$adaptersName}");
 		$driver = $driverConfig['driver'];
 
-		/** @var AdapterDriver $driver */
+		/** @var Driver $driver */
 		$driver = $this->app->make($driver);
 		$versionConfig = $this->getConfig($key = "namespaces.{$namespace}.versions.{$version}");
 
@@ -104,5 +110,28 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		}
 
 		return $driver->buildAdapters($driverConfig, $versionConfig);
+	}
+
+	protected function throwErrorIfVersionNotSet()
+	{
+		$this->app->bind(VersionSwitch::class, ErrorSwitch::class);
+	}
+
+	protected function resolveLatestVersionAsDefaultForAnyNamespace()
+	{
+		$this->app->alias(LatestVersion::class, VersionSwitch::class);
+		$this->app->bind(LatestVersion::class, function() {
+			return new LatestVersion($this->app->make(Api::class));
+		});
+	}
+
+	protected function bindResponseFactory()
+	{
+		$this->app->bind(ResponseFactory::class, function() {
+			$api = $this->app->make(Api::class);
+
+			$version = $api->versions()->get($this->app->make(VersionSwitch::class)->getVersionIdentifier());
+			return new ResponseFactory($version);
+		});
 	}
 }
