@@ -38,8 +38,8 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$this->replaceRouter();
 		$this->bindNamespaceManager();
 		$this->bindDefaultNamespace();
-		$this->bindNamespaces();
 		$this->resolveLatestVersionAsDefaultForAnyNamespace();
+		$this->bindNamespaces();
 		$this->bindResponseFactory();
 
 		$this->app->bind(ExceptionHandler::class, Handler::class);
