@@ -35,7 +35,13 @@ class Router extends \Illuminate\Routing\Router implements Registrar {
 		if($response instanceof PsrResponseInterface)
 		{
 			$response = (new HttpFoundationFactory)->createResponse($response);
-		} elseif( ! $response instanceof SymfonyResponse &&
+		}
+		elseif( ! $response instanceof SymfonyResponse)
+		{
+			$response = App::make(ResponseFactory::class)->build($response);
+			$response = new Response($response);
+		}
+		elseif( ! $response instanceof SymfonyResponse &&
 		          ($response instanceof Arrayable ||
 		           $response instanceof Jsonable ||
 		           $response instanceof ArrayObject ||
@@ -43,10 +49,6 @@ class Router extends \Illuminate\Routing\Router implements Registrar {
 		           is_array($response)))
 		{
 			$response = new JsonResponse($response);
-		} elseif( ! $response instanceof SymfonyResponse)
-		{
-			$response = App::make(ResponseFactory::class)->build($response);
-			$response = new Response($response);
 		}
 
 		if($response->getStatusCode() === Response::HTTP_NOT_MODIFIED)

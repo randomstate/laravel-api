@@ -4,7 +4,6 @@
 namespace RandomState\Tests\LaravelApi\Feature\Versioning;
 
 
-use RandomState\Api\Api;
 use RandomState\Api\Versioning\Manager;
 use RandomState\Api\Versioning\Version;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
