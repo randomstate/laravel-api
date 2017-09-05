@@ -8,24 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use League\Fractal\TransformerAbstract;
-use RandomState\Api\Api;
-use RandomState\Api\Namespaces\CustomNamespace;
-use RandomState\Api\Namespaces\Manager;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\TestCase;
 
 class CanNamespaceRoutesTest extends TestCase {
-
-	/**
-	 * @test
-	 */
-	public function namespace_interface_defaults_to_default_namespace()
-	{
-		$this->app->register(LaravelApiServiceProvider::class);
-
-		$this->assertInstanceOf(CustomNamespace::class, $this->app->make(Api::class));
-	    $this->assertEquals($this->app->make(Manager::class)->getNamespace('default'), $this->app->make(Api::class));
-	}
 
 	/**
 	 * @test

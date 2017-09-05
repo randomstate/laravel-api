@@ -13,7 +13,7 @@ class ResponseFactory {
 	 */
 	protected $version;
 
-	public function __construct(Version $version)
+	public function __construct(Version $version = null)
 	{
 		$this->version = $version;
 	}
@@ -23,7 +23,10 @@ class ResponseFactory {
 		// get the current version
 		// ask for the data to be transformed
 		// build into response
-		$data = $this->version->transform($response);
-		return $data;
+		if($this->version) {
+			$response = $this->version->transform($response);
+		}
+
+		return $response;
 	}
 }

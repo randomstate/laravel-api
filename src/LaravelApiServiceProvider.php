@@ -55,9 +55,9 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	protected function bindDefaultNamespace()
 	{
 		//bind default namespace
-		$this->app->bind(Api::class, function() {
-			return $this->app->make(Manager::class)->getNamespace();
-		});
+//		$this->app->bind(Api::class, function() {
+//			return $this->app->make(Manager::class)->getNamespace();
+//		});
 	}
 
 	protected function replaceRouter()
@@ -132,10 +132,14 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	protected function bindResponseFactory()
 	{
 		$this->app->bind(ResponseFactory::class, function() {
-			$api = $this->app->make(Api::class);
+			if($this->app->bound(Api::class)) {
+				$api = $this->app->make(Api::class);
 
-			$version = $api->versions()->get($this->app->make(VersionSwitch::class)->getVersionIdentifier());
-			return new ResponseFactory($version);
+				$version = $api->versions()->get($this->app->make(VersionSwitch::class)->getVersionIdentifier());
+				return new ResponseFactory($version);
+			}
+
+			return new ResponseFactory();
 		});
 	}
 }
