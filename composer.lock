@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8de0c7aa3e67fc90386c3363aced2924",
-    "content-hash": "f4367757b13acb32248e2b6106305def",
+    "hash": "8063c2914e0d44ffa55c153eeef3b207",
+    "content-hash": "dd7c74003bd7e3682d73273189ce425c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1373,16 +1373,16 @@
         },
         {
             "name": "randomstate/api",
-            "version": "v0.1.4",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/randomstate/api.git",
-                "reference": "096bacedf5d1777f8aca7f150945386b2c5ebcbd"
+                "reference": "88fd7ec2e1a2b7f5b2d06631f2d88989c5f0901a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/randomstate/api/zipball/096bacedf5d1777f8aca7f150945386b2c5ebcbd",
-                "reference": "096bacedf5d1777f8aca7f150945386b2c5ebcbd",
+                "url": "https://api.github.com/repos/randomstate/api/zipball/88fd7ec2e1a2b7f5b2d06631f2d88989c5f0901a",
+                "reference": "88fd7ec2e1a2b7f5b2d06631f2d88989c5f0901a",
                 "shasum": ""
             },
             "require": {
@@ -1409,7 +1409,7 @@
                 }
             ],
             "description": "A flexible API package for PHP.",
-            "time": "2017-09-05 17:49:22"
+            "time": "2017-09-06 10:38:32"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -9,6 +9,18 @@ use RandomState\LaravelApi\Adapters\Fractal\ExceptionAdapter;
 use RandomState\LaravelApi\Adapters\Fractal\PaginatorAdapter;
 
 return [
+	/*
+	 |------------------------------------------------------------
+	 | Data Adapters
+	 |------------------------------------------------------------
+	 |
+	 | Specify all adapters here that intercept data and transform
+	 | it to a standardized format.
+	 |
+	 | You can create custom ones by implementing the interface:
+	 | RandomState\Api\Transformation\Adapters\Adapter
+	 |
+	 */
 	'adapters' => [
 		'fractal' => [
 			'driver' => Fractal::class,
@@ -22,12 +34,25 @@ return [
 			]
 		]
 	],
+	/*
+	 |------------------------------------------------------------
+	 | Namespaces
+	 |------------------------------------------------------------
+	 |
+	 | This section is used for defining your different APIs.
+	 | Stick any (Fractal) Transformers you want in here.
+	 | Namespaces and Versions are automatically wired up for you.
+	 |
+	 */
 	'namespaces' => [
 		'default' => [
 			'adapters' => 'fractal',
 			'versions' => [
 				'current' => [
-					// RaffleTicketTransformer::class,
+					'transformers' => [
+						// RaffleTicketTransformer::class,
+					],
+					// 'inherit' => null,
 				]
 			]
 		]

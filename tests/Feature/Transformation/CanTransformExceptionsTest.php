@@ -35,7 +35,9 @@ class CanTransformExceptionsTest extends TestCase {
 			'adapters' => 'fractal',
 			'versions' => [
 				'current' => [
-					OldUserTransformer::class,
+					'transformers' => [
+						OldUserTransformer::class,
+					]
 				],
 			],
 		]);

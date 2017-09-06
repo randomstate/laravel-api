@@ -10,7 +10,7 @@
     ],
     "license": "MIT",
     "require": {
-        "randomstate/api": "^0.1.0",
+        "randomstate/api": "~0.2",
         "laravel/laravel": "^5.5"
     },
     "require-dev": {

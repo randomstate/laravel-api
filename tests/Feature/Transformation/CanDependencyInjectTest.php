@@ -30,7 +30,9 @@ class CanDependencyInjectTest extends TestCase {
 		$this->app->register(LaravelApiServiceProvider::class);
 		$this->app['config']->set('api.namespaces.default.versions', [
 			'latest' => [
-				InjectableTransformer::class,
+				'transformers' => [
+					InjectableTransformer::class,
+				]
 			],
 		]);
 
@@ -57,7 +59,9 @@ class CanDependencyInjectTest extends TestCase {
 			'adapters' => 'fractal',
 			'versions' => [
 				'current' => [
-					NamespaceTransformer::class,
+					'transformers' => [
+						NamespaceTransformer::class,
+					]
 				],
 			],
 		]);

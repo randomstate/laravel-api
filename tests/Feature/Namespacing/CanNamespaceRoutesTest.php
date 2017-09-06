@@ -25,7 +25,9 @@ class CanNamespaceRoutesTest extends TestCase {
 				'adapters' => 'fractal',
 				'versions' => [
 					'latest' => [
-						WebEntityTransformer::class,
+						'transformers' => [
+							WebEntityTransformer::class,
+						]
 					]
 				]
 			],
@@ -33,7 +35,9 @@ class CanNamespaceRoutesTest extends TestCase {
 				'adapters' => 'fractal',
 				'versions' => [
 					'latest' => [
-						ApiEntityTransformer::class
+						'transformers' => [
+							ApiEntityTransformer::class
+						]
 					],
 				]
 			]

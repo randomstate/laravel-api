@@ -33,14 +33,28 @@ class Fractal implements Driver {
 		// Build the adapters
 		// Forget the common dependencies
 
+		$transformers = $versionConfig['transformers'];
+		$adapters = $driverConfig['adapters'];
+
 		$this->app->bind(Manager::class, function() {
 			return new Manager();
 		});
 
-		$this->app->bind(Resolver::class, function() {
-			return new Resolver(function($transformer) {
+		$this->app->bind(Resolver::class, function() use($transformers) {
+			$resolver =  new Resolver(function($transformer) {
 				return $this->app->make($transformer);
 			});
+
+			foreach($transformers as $class => $transformer) {
+				// If transformer, then not an auto-bind... otherwise try to discover.
+				if(!is_numeric($class)) {
+					$resolver->bind($class, $transformer);
+				} else {
+					$resolver->bind($transformer);
+				}
+			}
+
+			return $resolver;
 		});
 
 		$this->app->bind(Switchboard::class, function() {
@@ -50,20 +64,6 @@ class Fractal implements Driver {
 		});
 
 		$this->app->bind(SerializerAbstract::class, $driverConfig['serializer']);
-
-		$transformers = $versionConfig;
-		$adapters = $driverConfig['adapters'];
-
-		$this->app->resolving(Resolver::class, function(Resolver $resolver) use($transformers) {
-			foreach($transformers as $class => $transformer) {
-				// If transformer, then not an auto-bind... otherwise try to discover.
-				if(!is_numeric($class)) {
-					$resolver->bind($class, $transformer);
-				} else {
-					$resolver->bind($transformer);
-				}
-			}
-		});
 
 		$built = [];
 

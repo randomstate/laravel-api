@@ -11,6 +11,7 @@ use RandomState\Api\Namespaces\CustomNamespace;
 use RandomState\Api\Namespaces\Manager;
 use RandomState\Api\Transformation\Manager as TransformManager;
 use RandomState\Api\Versioning\Manager as VersionManager;
+use RandomState\Api\Versioning\Version;
 use RandomState\LaravelApi\Adapters\Driver;
 use RandomState\LaravelApi\Exceptions\Handler;
 use RandomState\LaravelApi\Exceptions\UndeclaredVersionException;
@@ -37,12 +38,11 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 		$this->replaceRouter();
 		$this->bindNamespaceManager();
-		$this->bindDefaultNamespace();
 		$this->resolveLatestVersionAsDefaultForAnyNamespace();
 		$this->bindNamespaces();
 		$this->bindResponseFactory();
-
-		$this->app->bind(ExceptionHandler::class, Handler::class);
+		$this->wrapExceptionHandler();
+		$this->bindVersion();
 	}
 
 	protected function bindNamespaceManager()
@@ -50,14 +50,6 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$this->app->bind(Manager::class, function() {
 			return new Manager();
 		});
-	}
-
-	protected function bindDefaultNamespace()
-	{
-		//bind default namespace
-//		$this->app->bind(Api::class, function() {
-//			return $this->app->make(Manager::class)->getNamespace();
-//		});
 	}
 
 	protected function replaceRouter()
@@ -87,12 +79,16 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$manager = new VersionManager();
 		$versions = $this->getConfig("namespaces.{$namespace}.versions");
 
-		foreach($versions as $version => $config) {
-			$manager->register($version, function() use($namespace, $version) {
+		foreach($versions as $versionIdentifier => $config) {
+			$version = $manager->register($versionIdentifier, function() use($namespace, $versionIdentifier) {
 				return new TransformManager(
-					$this->getNewAdaptersForNamespaceAndVersion($namespace, $version)
+					$this->getNewAdaptersForNamespaceAndVersion($namespace, $versionIdentifier)
 				);
 			});
+
+			if($inherited = $versions[$versionIdentifier]['inherit'] ?? false) {
+				$version->inherit($inherited);
+			}
 		}
 
 		return $manager;
@@ -107,7 +103,7 @@ class LaravelApiServiceProvider extends ServiceProvider {
 
 		/** @var Driver $driver */
 		$driver = $this->app->make($driver);
-		$versionConfig = $this->getConfig($key = "namespaces.{$namespace}.versions.{$version}");
+		$versionConfig = $this->getConfig($key = "namespaces.{$namespace}.versions")[$version] ?? null;
 
 		if(is_null($versionConfig)) {
 			throw new UndeclaredVersionException("The version {$version} does not have any configuration or transformers configured.");
@@ -134,12 +130,31 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$this->app->bind(ResponseFactory::class, function() {
 			if($this->app->bound(Api::class)) {
 				$api = $this->app->make(Api::class);
+				$currentVersion = $this->app->make(VersionSwitch::class)->getVersionIdentifier();
 
-				$version = $api->versions()->get($this->app->make(VersionSwitch::class)->getVersionIdentifier());
+				$version = $api->versions()->get($currentVersion);
 				return new ResponseFactory($version);
 			}
 
 			return new ResponseFactory();
+		});
+	}
+
+	protected function wrapExceptionHandler()
+	{
+		$this->app->bind(ExceptionHandler::class, Handler::class);
+	}
+
+	protected function bindVersion()
+	{
+		$this->app->bind(Version::class, function() {
+			/** @var VersionSwitch $switch */
+			$switch = $this->app->make(VersionSwitch::class);
+
+			/** @var Api $api */
+			$api = $this->app->make(Api::class);
+
+			return $api->versions()->get($switch->getVersionIdentifier());
 		});
 	}
 }

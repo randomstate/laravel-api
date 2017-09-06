@@ -45,8 +45,10 @@ class PaginationTest extends TestCase {
 				'adapters' => 'fractal',
 				'versions' => [
 					'latest' => [
-						AnotherEntityTransformer::class,
-						OldUserTransformer::class,
+						'transformers' => [
+							AnotherEntityTransformer::class,
+							OldUserTransformer::class,
+						]
 					],
 				],
 			],

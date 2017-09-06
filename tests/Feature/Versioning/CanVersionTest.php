@@ -27,10 +27,14 @@ class CanVersionTest extends TestCase {
 	{
 		$this->app->make('config')->set('api.namespaces.default.versions', [
 			'1.0' => [
-				OldUserTransformer::class
+				'transformers' => [
+					OldUserTransformer::class,
+				]
 			],
 			'2.0' => [
-				CurrentUserTransformer::class,
+				'transformers' => [
+					CurrentUserTransformer::class,
+				]
 			]
 		]);
 
@@ -54,10 +58,14 @@ class CanVersionTest extends TestCase {
 	{
 		$this->app->make('config')->set('api.namespaces.default.versions', [
 			'1' => [
-				OldUserTransformer::class,
+				'transformers' => [
+					OldUserTransformer::class,
+				]
 			],
 			'2' => [
-				CurrentUserTransformer::class,
+				'transformers' => [
+					CurrentUserTransformer::class,
+				]
 			]
 		]);
 
@@ -83,7 +91,9 @@ class CanVersionTest extends TestCase {
 	{
 		$this->app->make('config')->set('api.namespaces.default.versions', [
 			'1.0.0' => [
-				OldUserTransformer::class,
+				'transformers' => [
+					OldUserTransformer::class,
+				]
 			]
 		]);
 
