@@ -26,6 +26,8 @@ return [
 				'current' => [
 					'transformers' => [
 						// RaffleTicketTransformer::class,
+						// RaffleTicketTransformer::class => RaffleTicket::class
+						// RaffleTicketTransformer::class => [RaffleTicket::class]
 					],
 					// 'inherit' => '1.0',
 				],
