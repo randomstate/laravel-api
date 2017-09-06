@@ -47,19 +47,4 @@ class ApiNamespace {
 
 		return $next($request);
 	}
-
-	protected function bindManagerInstances()
-	{
-		$this->app->alias(Api::class, Manager::class);
-
-		$this->app->bind(\RandomState\Api\Versioning\Manager::class, function() {
-			return $this->app->make(Api::class)->versions();
-		});
-
-		$this->app->bind(\RandomState\Api\Transformation\Manager::class, function() {
-			return $this->app->make(Api::class)->versions()->get(
-				$this->app->make(VersionSwitch::class)->getVersionIdentifier()
-			)->getTransformationManager();
-		});
-	}
 }
