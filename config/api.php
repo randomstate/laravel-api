@@ -11,31 +11,6 @@ use RandomState\LaravelApi\Adapters\Fractal\PaginatorAdapter;
 return [
 	/*
 	 |------------------------------------------------------------
-	 | Data Adapters
-	 |------------------------------------------------------------
-	 |
-	 | Specify all adapters here that intercept data and transform
-	 | it to a standardized format.
-	 |
-	 | You can create custom ones by implementing the interface:
-	 | RandomState\Api\Transformation\Adapters\Adapter
-	 |
-	 */
-	'adapters' => [
-		'fractal' => [
-			'driver' => Fractal::class,
-			'serializer' => DataArraySerializer::class,
-			'adapters' => [
-				PaginatorAdapter::class,
-				CollectionAdapter::class,
-				ItemAdapter::class,
-				ScalarAdapter::class,
-				ExceptionAdapter::class,
-			]
-		]
-	],
-	/*
-	 |------------------------------------------------------------
 	 | Namespaces
 	 |------------------------------------------------------------
 	 |
@@ -52,9 +27,35 @@ return [
 					'transformers' => [
 						// RaffleTicketTransformer::class,
 					],
-					// 'inherit' => null,
-				]
-			]
-		]
-	]
+					// 'inherit' => '1.0',
+				],
+			],
+		],
+	],
+
+	/*
+	 |------------------------------------------------------------
+	 | Data Adapters
+	 |------------------------------------------------------------
+	 |
+	 | Specify all adapters here that intercept data and transform
+	 | it to a standardized format.
+	 |
+	 | You can create custom ones by implementing the interface:
+	 | RandomState\Api\Transformation\Adapters\Adapter
+	 |
+	 */
+	'adapters'   => [
+		'fractal' => [
+			'driver'     => Fractal::class,
+			'serializer' => DataArraySerializer::class,
+			'adapters'   => [
+				PaginatorAdapter::class,
+				CollectionAdapter::class,
+				ItemAdapter::class,
+				ScalarAdapter::class,
+				ExceptionAdapter::class,
+			],
+		],
+	],
 ];

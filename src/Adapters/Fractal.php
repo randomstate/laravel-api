@@ -45,12 +45,19 @@ class Fractal implements Driver {
 				return $this->app->make($transformer);
 			});
 
-			foreach($transformers as $class => $transformer) {
+			foreach($transformers as $transformer => $classes) {
 				// If transformer, then not an auto-bind... otherwise try to discover.
-				if(!is_numeric($class)) {
-					$resolver->bind($class, $transformer);
+				if(!is_numeric($transformer)) {
+					if(!is_array($classes))
+					{
+						$classes = [$classes];
+					}
+
+					foreach($classes as $class) {
+						$resolver->bind($class, $transformer);
+					}
 				} else {
-					$resolver->bind($transformer);
+					$resolver->bind($classes);
 				}
 			}
 

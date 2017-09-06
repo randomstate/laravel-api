@@ -42,7 +42,7 @@ class CanSetVersionOnRequestIncomingTest extends TestCase {
 			'versions' => [
 				'1' => [
 					'transformers' => [
-						ForcedVersion::class => VersionSwitchTransformer::class,
+						VersionSwitchTransformer::class => [ForcedVersion::class],
 					],
 				],
 				'2' => [
