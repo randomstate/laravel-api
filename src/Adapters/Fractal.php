@@ -35,10 +35,11 @@ class Fractal implements Driver {
 
 		$transformers = $versionConfig['transformers'];
 		$adapters = $driverConfig['adapters'];
+        $serializer = $driverConfig['serializer'];
 
-		$this->app->bind(Manager::class, function() {
-			return new Manager();
-		});
+        $this->app->bind(Manager::class, function() use($serializer) {
+            return (new Manager())->setSerializer($this->app->make($serializer));
+        });
 
 		$this->app->bind(Resolver::class, function() use($transformers) {
 			$resolver =  new Resolver(function($transformer) {
@@ -69,8 +70,6 @@ class Fractal implements Driver {
 				$this->app->make(Resolver::class)
 			);
 		});
-
-		$this->app->bind(SerializerAbstract::class, $driverConfig['serializer']);
 
 		$built = [];
 
