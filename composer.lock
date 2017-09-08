@@ -73,16 +73,16 @@
         },
         {
             "name": "randomstate/api",
-            "version": "v0.2.0",
+            "version": "v0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/randomstate/api.git",
-                "reference": "88fd7ec2e1a2b7f5b2d06631f2d88989c5f0901a"
+                "reference": "eade30581f022f1590e8c57ca505af6f717480bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/randomstate/api/zipball/88fd7ec2e1a2b7f5b2d06631f2d88989c5f0901a",
-                "reference": "88fd7ec2e1a2b7f5b2d06631f2d88989c5f0901a",
+                "url": "https://api.github.com/repos/randomstate/api/zipball/eade30581f022f1590e8c57ca505af6f717480bf",
+                "reference": "eade30581f022f1590e8c57ca505af6f717480bf",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 }
             ],
             "description": "A flexible API package for PHP.",
-            "time": "2017-09-06 10:38:32"
+            "time": "2017-09-08 09:20:34"
         }
     ],
     "packages-dev": [
@@ -566,16 +566,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.2",
+            "version": "v5.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "65da63c8ad4836e2bcddcff75becd49c71c5041c"
+                "reference": "779a98d3b2ebed2128db1a668dcc10a65c9b01be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/65da63c8ad4836e2bcddcff75becd49c71c5041c",
-                "reference": "65da63c8ad4836e2bcddcff75becd49c71c5041c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/779a98d3b2ebed2128db1a668dcc10a65c9b01be",
+                "reference": "779a98d3b2ebed2128db1a668dcc10a65c9b01be",
                 "shasum": ""
             },
             "require": {
@@ -694,7 +694,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-09-04 14:09:04"
+            "time": "2017-09-07 13:50:21"
         },
         {
             "name": "laravel/laravel",
