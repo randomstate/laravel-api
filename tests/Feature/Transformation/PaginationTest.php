@@ -14,6 +14,7 @@ use RandomState\Api\Transformation\Adapters\Fractal\CollectionAdapter;
 use RandomState\Api\Transformation\Adapters\Fractal\ItemAdapter;
 use RandomState\LaravelApi\Adapters\Fractal;
 use RandomState\LaravelApi\Adapters\Fractal\PaginatorAdapter;
+use RandomState\LaravelApi\Adapters\Fractal\ResponseAdapter;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\Model\AnotherEntity;
 use RandomState\Tests\LaravelApi\Model\AnotherEntityTransformer;
@@ -33,6 +34,7 @@ class PaginationTest extends TestCase {
 				'driver'     => Fractal::class,
 				'serializer' => DataArraySerializer::class,
 				'adapters'   => [
+				    ResponseAdapter::class,
 					PaginatorAdapter::class,
 					CollectionAdapter::class,
 					ItemAdapter::class,

@@ -15,6 +15,7 @@ use RandomState\Api\Namespaces\Manager;
 use RandomState\Api\Transformation\Adapters\Fractal\ItemAdapter;
 use RandomState\Api\Transformation\Fractal\Switchboard;
 use RandomState\LaravelApi\Adapters\Fractal;
+use RandomState\LaravelApi\Adapters\Fractal\ResponseAdapter;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\Model\OldUserTransformer;
 use RandomState\Tests\LaravelApi\Model\User;
@@ -51,6 +52,7 @@ class CanDependencyInjectTest extends TestCase {
 			'driver'   => Fractal::class,
 			'serializer' => DataArraySerializer::class,
 			'adapters' => [
+			    ResponseAdapter::class,
 				ItemAdapter::class,
 			],
 		]);
@@ -67,6 +69,7 @@ class CanDependencyInjectTest extends TestCase {
 		]);
 
 		$this->app->register(LaravelApiServiceProvider::class);
+		$this->withoutExceptionHandling();
 
 		Route::get('/', InjectController::class . '@inject')->middleware('namespace:web');
 

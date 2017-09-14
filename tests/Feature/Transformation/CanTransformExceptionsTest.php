@@ -12,6 +12,7 @@ use RandomState\Api\Transformation\Adapters\Fractal\ScalarAdapter;
 use RandomState\Api\Transformation\Fractal\ScalarTransformer;
 use RandomState\LaravelApi\Adapters\Fractal;
 use RandomState\LaravelApi\Adapters\Fractal\ExceptionAdapter;
+use RandomState\LaravelApi\Adapters\Fractal\ResponseAdapter;
 use RandomState\LaravelApi\Exceptions\Exception;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\Model\OldUserTransformer;
@@ -30,9 +31,10 @@ class CanTransformExceptionsTest extends TestCase {
 			'driver'   => Fractal::class,
 			'serializer' => DataArraySerializer::class,
 			'adapters' => [
-			    ItemAdapter::class,
+			    ResponseAdapter::class,
 				ExceptionAdapter::class,
-			],
+                ItemAdapter::class,
+            ],
 		]);
 
 		$this->app->make('config')->set('api.namespaces.default', [
