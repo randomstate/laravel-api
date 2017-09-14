@@ -7,6 +7,7 @@ use RandomState\Api\Transformation\Adapters\Fractal\ScalarAdapter;
 use RandomState\LaravelApi\Adapters\Fractal;
 use RandomState\LaravelApi\Adapters\Fractal\ExceptionAdapter;
 use RandomState\LaravelApi\Adapters\Fractal\PaginatorAdapter;
+use RandomState\LaravelApi\Adapters\Fractal\ResponseAdapter;
 
 return [
 	/*
@@ -52,11 +53,12 @@ return [
 			'driver'     => Fractal::class,
 			'serializer' => DataArraySerializer::class,
 			'adapters'   => [
-				PaginatorAdapter::class,
-				CollectionAdapter::class,
-				ItemAdapter::class,
-				ScalarAdapter::class,
-				ExceptionAdapter::class,
+			    ResponseAdapter::class,
+                ExceptionAdapter::class,
+                PaginatorAdapter::class,
+                CollectionAdapter::class,
+                ItemAdapter::class,
+                ScalarAdapter::class,
 			],
 		],
 	],

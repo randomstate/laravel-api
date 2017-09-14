@@ -13,6 +13,7 @@ use RandomState\Api\Transformation\Manager as TransformManager;
 use RandomState\Api\Versioning\Manager as VersionManager;
 use RandomState\Api\Versioning\Version;
 use RandomState\LaravelApi\Adapters\Driver;
+use RandomState\LaravelApi\Adapters\RequiresAdapters;
 use RandomState\LaravelApi\Exceptions\Handler;
 use RandomState\LaravelApi\Exceptions\UndeclaredVersionException;
 use RandomState\LaravelApi\Http\Response\ResponseFactory;
@@ -109,7 +110,23 @@ class LaravelApiServiceProvider extends ServiceProvider {
 			throw new UndeclaredVersionException("The version {$version} does not have any configuration or transformers configured.");
 		}
 
-		return $driver->buildAdapters($driverConfig, $versionConfig);
+		$adapters = $driver->buildAdapters($driverConfig, $versionConfig);
+
+		foreach($adapters as $adapter) {
+		    if($adapter instanceof RequiresAdapters) {
+		        $eligible = [];
+
+		        foreach($adapters as $check) {
+		            if($check !== $adapter) {
+		                $eligible[] = $check;
+                    }
+                }
+
+		        $adapter->setAdapters($eligible);
+            }
+        }
+
+        return $adapters;
 	}
 
 	protected function throwErrorIfVersionNotSet()

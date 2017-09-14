@@ -24,7 +24,6 @@ class PaginatorAdapter extends FractalAdapter {
 	public function getResource($data)
 	{
 		$resource = new Collection($data->items(), $this->switchboard);
-//		$resource->setMeta(['test' => 'test']);
 		$resource->setPaginator(new IlluminatePaginatorAdapter($data));
 
 		return $resource;

@@ -26,5 +26,10 @@
             "RandomState\\Tests\\LaravelApi\\": "tests",
             "Tests\\": "vendor/laravel/laravel/tests"
         }
+    },
+    "config": {
+        "platform": {
+            "php": "7.0.0"
+        }
     }
 }
