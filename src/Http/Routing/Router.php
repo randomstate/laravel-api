@@ -14,7 +14,7 @@ class Router extends \Illuminate\Routing\Router implements Registrar {
 	 */
 	protected $router;
 
-	public static function prepareResponse($request, $response)
+	public function prepareResponse($request, $response)
 	{
 		$response = app(ResponseFactory::class)->build($response);
 
