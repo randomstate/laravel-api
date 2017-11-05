@@ -37,7 +37,7 @@ class Fractal implements Driver {
 		$adapters = $driverConfig['adapters'];
         $serializer = $driverConfig['serializer'];
 
-        $this->app->bind(Manager::class, function() use($serializer) {
+        $this->app->singleton(Manager::class, function() use($serializer) {
             return (new Manager())->setSerializer($this->app->make($serializer));
         });
 
