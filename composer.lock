@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a65b54214a060476ee7d17e8644e8a93",
-    "content-hash": "bae05e5c77f09d0e6a327607e2540088",
+    "hash": "007623aa136ef98dfbfd2c267e5c3a80",
+    "content-hash": "1237479925a4ec352689958edc1f7562",
     "packages": [
         {
             "name": "league/fractal",
