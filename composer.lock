@@ -73,16 +73,16 @@
         },
         {
             "name": "randomstate/api",
-            "version": "v0.3.1",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/randomstate/api.git",
-                "reference": "233c12d3fa710e8c6c41d91026dd3b0d787ebfb3"
+                "reference": "7c1a86f5e8bde39642d742bfb5c3274a5d80a7f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/randomstate/api/zipball/233c12d3fa710e8c6c41d91026dd3b0d787ebfb3",
-                "reference": "233c12d3fa710e8c6c41d91026dd3b0d787ebfb3",
+                "url": "https://api.github.com/repos/randomstate/api/zipball/7c1a86f5e8bde39642d742bfb5c3274a5d80a7f5",
+                "reference": "7c1a86f5e8bde39642d742bfb5c3274a5d80a7f5",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 }
             ],
             "description": "A flexible API package for PHP.",
-            "time": "2017-09-14 20:55:19"
+            "time": "2017-09-14 20:54:58"
         }
     ],
     "packages-dev": [
