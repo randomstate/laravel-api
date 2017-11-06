@@ -10,7 +10,7 @@
     ],
     "license": "MIT",
     "require": {
-        "randomstate/api": "~0.4"
+        "randomstate/api": "~0.4.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.3",
