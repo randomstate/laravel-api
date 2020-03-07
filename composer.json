@@ -4,17 +4,18 @@
     "type": "library",
     "authors": [
         {
-            "name": "Connor Imrie",
+            "name": "Connor Forsyth",
             "email": "connor@randomstate.co.uk"
         }
     ],
     "license": "MIT",
     "require": {
+        "php" : ">= 7.2.5",
         "randomstate/api": "~0.4.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.3",
-        "laravel/laravel": "^5.5"
+        "phpunit/phpunit": "^8.5",
+        "laravel/laravel": "^7.0"
     },
     "autoload": {
         "psr-4": {
@@ -25,11 +26,6 @@
         "psr-4": {
             "RandomState\\Tests\\LaravelApi\\": "tests",
             "Tests\\": "vendor/laravel/laravel/tests"
-        }
-    },
-    "config": {
-        "platform": {
-            "php": "7.0.0"
         }
     }
 }

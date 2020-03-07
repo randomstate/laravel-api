@@ -14,7 +14,7 @@ use RandomState\Tests\LaravelApi\TestCase;
 
 class CanVersionTest extends TestCase {
 
-	protected function setUp()
+	protected function setUp() : void
 	{
 		parent::setUp();
 		$this->app->register(LaravelApiServiceProvider::class);

@@ -9,7 +9,7 @@ use Illuminate\Contracts\Http\Kernel;
 class TestCase extends \Tests\TestCase {
 
 
-	protected function setUp()
+	protected function setUp() : void
 	{
 		parent::setUp();
 		$this->app->bind(Kernel::class, \RandomState\Tests\LaravelApi\Model\Kernel::class);
