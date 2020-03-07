@@ -11,7 +11,7 @@ use RandomState\Tests\LaravelApi\TestCase;
 
 class LaravelDefaultsTest extends TestCase {
 
-	protected function setUp()
+	protected function setUp() : void
 	{
 		parent::setUp();
 		$this->app->register(LaravelApiServiceProvider::class);
