@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use League\Fractal\TransformerAbstract;
+use RandomState\LaravelApi\Http\Response\TransformedResponse;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\TestCase;
 
@@ -86,6 +87,6 @@ class NamespaceController extends Controller {
 
 	public function test(Request $request)
 	{
-		return new Entity();
+		return new TransformedResponse(new Entity());
 	}
 }

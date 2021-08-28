@@ -47,7 +47,7 @@ class CanVersionTest extends TestCase {
 		try {
 			$this->assertNull($versionManager->get('3.0'));
 		} catch (\ErrorException $e) {
-			$this->assertEquals("Undefined index: 3.0", $e->getMessage());
+			$this->assertEquals("Undefined array key \"3.0\"", $e->getMessage());
 		}
 	}
 

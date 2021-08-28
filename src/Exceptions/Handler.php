@@ -8,19 +8,12 @@ use Throwable;
 use Illuminate\Contracts\Container\Container;
 use RandomState\LaravelApi\Exceptions\Exception as CustomException;
 use RandomState\LaravelApi\Http\Response\ResponseFactory;
-use RandomState\LaravelApi\Http\Routing\Router;
 
 class Handler extends \App\Exceptions\Handler {
 
-	/**
-	 * @var Router
-	 */
-	protected $router;
-
-	public function __construct(Container $container, Router $router)
+	public function __construct(Container $container)
 	{
 		parent::__construct($container);
-		$this->router = $router;
 	}
 
 	public function render($request, Throwable $throwable)

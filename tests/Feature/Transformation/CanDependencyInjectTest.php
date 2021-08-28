@@ -16,6 +16,7 @@ use RandomState\Api\Transformation\Adapters\Fractal\ItemAdapter;
 use RandomState\Api\Transformation\Fractal\Switchboard;
 use RandomState\LaravelApi\Adapters\Fractal;
 use RandomState\LaravelApi\Adapters\Fractal\ResponseAdapter;
+use RandomState\LaravelApi\Http\Response\TransformedResponse;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\Model\OldUserTransformer;
 use RandomState\Tests\LaravelApi\Model\User;
@@ -39,7 +40,8 @@ class CanDependencyInjectTest extends TestCase {
 
 		Route::get('/', InjectController::class . '@inject')->middleware('namespace:default');
 
-		$this->assertInstanceOf(Switchboard::class, $switchboard = $this->get('/')->getOriginalContent()['data']['switchboard']);
+		$response = $this->get('/')->decodeResponseJson();
+		$this->assertEquals(Switchboard::class, $response['data']['switchboard']);
 	}
 
 	/**
@@ -82,7 +84,7 @@ class InjectController extends Controller {
 
 	public function inject()
 	{
-		return new User();
+		return new TransformedResponse(new User());
 	}
 }
 
@@ -100,15 +102,7 @@ class InjectableTransformer extends TransformerAbstract {
 
 	public function transform(User $user)
 	{
-		return ['switchboard' => $this->switchboard];
-	}
-
-	/**
-	 * @return Switchboard
-	 */
-	public function getSwitchboard()
-	{
-		return $this->switchboard;
+		return ['switchboard' => get_class($this->switchboard)];
 	}
 }
 

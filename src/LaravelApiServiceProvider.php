@@ -17,7 +17,6 @@ use RandomState\LaravelApi\Adapters\RequiresAdapters;
 use RandomState\LaravelApi\Exceptions\Handler;
 use RandomState\LaravelApi\Exceptions\UndeclaredVersionException;
 use RandomState\LaravelApi\Http\Response\ResponseFactory;
-use RandomState\LaravelApi\Http\Routing\Router;
 use RandomState\LaravelApi\Traits\ApiConfig;
 use RandomState\LaravelApi\Versioning\ErrorSwitch;
 use RandomState\LaravelApi\Versioning\LatestVersion;
@@ -37,7 +36,6 @@ class LaravelApiServiceProvider extends ServiceProvider {
 	{
 		$this->mergeConfigFrom(self::getConfigPath(), self::getConfigName());
 
-		$this->replaceRouter();
 		$this->bindNamespaceManager();
 		$this->resolveLatestVersionAsDefaultForAnyNamespace();
 		$this->bindNamespaces();
@@ -51,13 +49,6 @@ class LaravelApiServiceProvider extends ServiceProvider {
 		$this->app->bind(Manager::class, function() {
 			return new Manager();
 		});
-	}
-
-	protected function replaceRouter()
-	{
-		//bind router
-		$this->app->singleton(Router::class);
-		$this->app->alias(Router::class, 'router');
 	}
 
 	protected function bindNamespaces()

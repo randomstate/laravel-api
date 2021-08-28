@@ -8,7 +8,6 @@ use Closure;
 use Illuminate\Contracts\Container\Container;
 use RandomState\Api\Api;
 use RandomState\Api\Namespaces\Manager;
-use RandomState\Api\Versioning\Version;
 use RandomState\LaravelApi\Versioning\ForcedVersion;
 use RandomState\LaravelApi\VersionSwitch;
 

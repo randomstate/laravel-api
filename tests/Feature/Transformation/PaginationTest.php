@@ -15,6 +15,7 @@ use RandomState\Api\Transformation\Adapters\Fractal\ItemAdapter;
 use RandomState\LaravelApi\Adapters\Fractal;
 use RandomState\LaravelApi\Adapters\Fractal\PaginatorAdapter;
 use RandomState\LaravelApi\Adapters\Fractal\ResponseAdapter;
+use RandomState\LaravelApi\Http\Response\TransformedResponse;
 use RandomState\LaravelApi\LaravelApiServiceProvider;
 use RandomState\Tests\LaravelApi\Model\AnotherEntity;
 use RandomState\Tests\LaravelApi\Model\AnotherEntityTransformer;
@@ -89,10 +90,10 @@ class PaginationController extends Controller {
 
 	public function paginate()
 	{
-		return new LengthAwarePaginator(
+		return new TransformedResponse(new LengthAwarePaginator(
 			[new User(), new User(), new AnotherEntity()],
 			3,
 			3
-		);
+		));
 	}
 }
